@@ -1,0 +1,40 @@
+/* Everforest Light Medium Theme */
+:root {
+    --ev-bg: #f3efdc;
+    --ev-bg-soft: #ebe6d4;
+    --ev-card: #f9f5e6;
+    --ev-text: #5c6a72;
+    --ev-text-bold: #475258;
+    --ev-accent: #df8644;
+    --ev-accent-dark: #c56d32;
+}
+
+.card-ev {
+    background: var(--ev-card);
+    border: 1px solid #e6dfc8;
+    border-radius: 12px;
+}
+
+.price-ev {
+    color: var(--ev-accent-dark);
+}
+
+/* Nút kiểu Everforest */
+.btn-ev-primary {
+    background-color: var(--ev-accent);
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 10px;
+}
+.btn-ev-primary:hover {
+    background-color: var(--ev-accent-dark);
+}
+
+/* Category link */
+.category-link {
+    color: var(--ev-accent-dark);
+}
+.category-link:hover {
+    text-decoration: underline;
+}

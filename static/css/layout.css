@@ -1,0 +1,123 @@
+:root {
+  --light-fg: #5c6a72;
+  --light-red: #f85552;
+  --light-orange: #f57d26;
+  --light-yellow: #dfa000;
+  --light-green: #8da101;
+  --light-blue: #3a94c5;
+  --light-aqua: #35a77c;
+  --light-purple: #df69ba;
+  --light-gray-0: #a6b0a0;
+  --light-gray-1: #939f91;
+  --light-gray-2: #829181;
+  --light-bg-dim: #efebd4;
+  --light-bg-0: #fdf6e3;
+  --light-bg-1: #f4f0d9;
+  --light-bg-2: #efebd4;
+  --light-bg-3: #e6e2cc;
+  --light-bg-4: #e0dcc7;
+  --light-bg-5: #bdc3af;
+}
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* đảm bảo body luôn cao ít nhất bằng viewport */
+  background-color: var(--light-bg-0);
+  font-family: "Inter", sans-serif;
+}
+
+main.container {
+  flex: 1; /* chiếm không gian còn lại, đẩy footer xuống đáy */
+}
+
+.footer {
+  background-color: var(--light-fg);
+  color: white;
+}
+
+.navbar {
+  background-color: var(--light-bg-dim);
+  padding: 8px 24px;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  color: var(--light-aqua);
+}
+
+.cart-btn {
+  background-color: var(--light-blue);
+  color: white;
+}
+
+.cart-btn:hover {
+  background-color: #7fbbb3;
+  color: white;
+}
+
+.btn-ev-login {
+  background-color: var(--light-aqua);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 6px 14px;
+  transition: 0.2s;
+}
+
+.btn-ev-login:hover,
+.btn-ev-login:focus {
+  background-color: #83c092;
+  color: white;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+  border-radius: 10px;
+  border: 1px solid var(--light-bg-4);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+  background-color: var(--light-bg-0);
+  font-size: 0.95rem;
+}
+
+/* Dropdown item */
+.dropdown-item {
+  color: var(--light-fg);
+  padding: 8px 16px;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background-color: var(--light-aqua);
+  color: white;
+}
+
+.dropdown-item i {
+  font-size: 1rem;
+  color: inherit;
+}
+
+.dropdown-menu-end {
+  right: 0;
+  left: auto;
+}
+
+.info-field {
+  border: 1px solid var(--light-bg-dim);
+  transition: background-color 0.2s;
+}
+.info-field:hover {
+  background-color: var(--light-bg-dim);
+}

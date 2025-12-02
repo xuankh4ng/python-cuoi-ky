@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+{% block title %}Thông tin cá nhân{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+    <div class="card card-ev shadow-sm p-4">
+
+      <!-- Avatar + tên -->
+      <div class="d-flex align-items-center gap-3 mb-3">
+        {% if profile.avatar %}
+          <img src="{{ profile.avatar.url }}" alt="{{ profile.user.username }}" 
+               class="rounded-circle border" style="width:96px;height:96px;object-fit:cover;">
+        {% else %}
+          <div class="rounded-circle bg-light d-flex justify-content-center align-items-center border"
+               style="width:96px;height:96px;">
+            <i class="bi bi-person fs-2 text-muted"></i>
+          </div>
+        {% endif %}
+        <div>
+          <h4 class="mb-0">{{ profile.full_name|default:profile.user.username }}</h4>
+          <small class="text-muted">@{{ profile.user.username }}</small>
+        </div>
+      </div>
+
+      <hr class="my-3">
+
+      <!-- Thông tin chi tiết -->
+      <div class="row g-3">
+        <div class="col-12">
+          <div class="info-field d-flex justify-content-between align-items-center p-2 bg-light rounded">
+            <strong>Email:</strong> <span>{{ profile.user.email|default:"Chưa có" }}</span>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="info-field d-flex justify-content-between align-items-center p-2 bg-light rounded">
+            <strong>Giới tính:</strong>
+            <span>
+              {% if profile.gender == 'male' %}Nam{% elif profile.gender == 'female' %}Nữ{% else %}Khác/Chưa có{% endif %}
+            </span>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="info-field d-flex justify-content-between align-items-center p-2 bg-light rounded">
+            <strong>Ngày sinh:</strong> <span>{{ profile.birthdate|date:"d/m/Y"|default:"Chưa có" }}</span>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="info-field d-flex justify-content-between align-items-center p-2 bg-light rounded">
+            <strong>Số điện thoại:</strong> <span>{{ profile.phone|default:"Chưa có" }}</span>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="info-field d-flex justify-content-between align-items-center p-2 bg-light rounded">
+            <strong>Địa chỉ:</strong> <span>{{ profile.address|default:"Chưa có" }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nút chỉnh sửa -->
+      <div class="mt-4 d-flex justify-content-end">
+        <a href="{% url 'profile_edit' %}" class="btn btn-ev-submit px-2">Chỉnh sửa</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

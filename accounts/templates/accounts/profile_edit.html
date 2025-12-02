@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% block title %}Chỉnh sửa thông tin cá nhân{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+    <div class="card card-ev shadow-sm p-4">
+
+      <h4 class="mb-3">Chỉnh sửa thông tin cá nhân</h4>
+
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="d-flex align-items-center gap-3 mb-3">
+          {% if profile.avatar %}
+            <img src="{{ profile.avatar.url }}" alt="{{ profile.user.username }}" 
+                 class="rounded-circle" style="width:96px;height:96px;object-fit:cover;">
+          {% else %}
+            <div class="rounded-circle bg-light d-flex justify-content-center align-items-center"
+                 style="width:96px;height:96px;">
+              <i class="bi bi-person fs-2 text-muted"></i>
+            </div>
+          {% endif %}
+          <div>
+            <strong>{{ profile.user.username }}</strong>
+          </div>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-12">
+            <label class="form-label fw-semibold">Tên đầy đủ</label>
+            {{ form.full_name }}
+          </div>
+          <div class="col-6">
+            <label class="form-label fw-semibold">Giới tính</label>
+            {{ form.gender }}
+          </div>
+          <div class="col-6">
+            <label class="form-label fw-semibold">Ngày sinh</label>
+            {{ form.birthdate }}
+          </div>
+          <div class="col-6">
+            <label class="form-label fw-semibold">Số điện thoại</label>
+            {{ form.phone }}
+          </div>
+          <div class="col-12">
+            <label class="form-label fw-semibold">Địa chỉ</label>
+            {{ form.address }}
+          </div>
+          <div class="col-12">
+            <label class="form-label fw-semibold">Avatar</label>
+            {{ form.avatar }}
+          </div>
+        </div>
+
+        <div class="mt-4 text-end">
+          <button type="submit" class="btn btn-ev-submit px-3">Lưu thay đổi</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

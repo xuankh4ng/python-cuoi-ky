@@ -1,0 +1,102 @@
+{% extends "layout.html" %}
+{% load money_filter %}
+
+{% block title %}{{ book.title }}{% endblock %}
+
+{% block content %}
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  {% endfor %}
+{% endif %}
+<div class="row g-4">
+    <!-- LEFT SECTION (INFO) -->
+    <div class="col-md-8">
+        
+        <!-- BOOK INFO -->
+        <div class="card card-ev shadow-sm p-4 mb-4">
+            <h1 class="display-6 fw-bold mb-2">{{ book.title }}</h1>
+            <p class="text-muted mb-3">Tác giả: <strong>{{ book.author }}</strong></p>
+
+            <div class="d-flex align-items-center mb-4">
+                <span class="price-ev fw-bold fs-2 me-3">
+                    {{ book.price|money }}
+                </span>
+            </div>
+
+            {% if book.stock > 0 %}
+            <div class="d-flex justify-content-between flex-wrap align-items-center mb-3">
+                <div>
+                    <span class="badge bg-success p-2 fs-6">
+                        Còn hàng: {{ book.stock }} cuốn
+                    </span>
+                </div>
+
+                <form action="{% url 'add_to_cart' book.id %}" method="post" class="d-flex align-items-center">
+                    {% csrf_token %}
+                    <div class="input-group me-3" style="max-width: 80px;">
+                        <input type="number" name="quantity" value="1" min="1" max="{{ book.stock }}" class="form-control text-center">
+                    </div>
+                    <button class="btn btn-warning d-flex align-items-center" type="submit">
+                        <i class="bi bi-cart3 me-1"></i>
+                        <span class="add-cart">Thêm vào Giỏ</span>
+                    </button>
+                </form>
+            </div>
+            {% else %}
+            <span class="badge bg-danger p-2 fs-6">Hết hàng</span>
+            {% endif %}
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div class="card card-ev shadow-sm p-4">
+            <h4 class="mb-3">Mô tả Sản phẩm</h4>
+            <div class="text-secondary">
+                {{ book.description|linebreaks }}
+            </div>
+
+            <hr>
+
+            <p class="mb-0">
+                Thể loại:
+                {% if book.category and book.category.slug %}
+                    <a href="{% url 'book_list_by_category' book.category.slug %}"
+                       class="category-link text-decoration-none fw-semibold">
+                        {{ book.category.name }}
+                    </a>
+                {% else %}
+                    <span class="text-muted">Chưa xác định</span>
+                {% endif %}
+            </p>
+        </div>
+    </div>
+
+    <!-- RIGHT SECTION (IMAGE) -->
+    <div class="col-md-4">
+        <div class="card card-ev shadow-sm p-3"">
+            <h5 class="text-center mb-3">Ảnh bìa</h5>
+
+            {% if book.image %}
+                <img src="{{ book.image.url }}" class="img-fluid rounded" alt="{{ book.title }}">
+            {% else %}
+                <div class="d-flex justify-content-center align-items-center bg-light p-5 rounded">
+                    <p class="text-muted">Không có ảnh</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<script>
+  // Ẩn alert sau 2 giây
+  setTimeout(() => {
+      const alerts = document.querySelectorAll('.alert');
+      alerts.forEach(alert => {
+          const bsAlert = bootstrap.Alert.getOrCreateInstance(alert);
+          bsAlert.close();
+      });
+  }, 2000);
+</script>
+{% endblock %}

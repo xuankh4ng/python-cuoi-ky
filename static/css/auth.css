@@ -1,0 +1,67 @@
+.card-ev {
+  background-color: var(--light-bg-0);
+  border-radius: 12px;
+  border: 1px solid var(--light-bg-3);
+  padding: 2rem;
+  transition: 0.3s;
+}
+
+.card-ev:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+input,
+select,
+textarea {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--light-bg-4);
+  padding: 10px 14px;
+  font-size: 1rem;
+  transition: 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--light-aqua);
+  box-shadow: 0 0 0 0.2rem rgba(53, 167, 124, 0.25);
+  outline: none;
+}
+.btn-ev-submit {
+  background-color: var(--light-aqua);
+  color: white;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 10px 0;
+  transition: 0.2s;
+}
+
+.btn-ev-submit:hover {
+  background-color: #83c092;
+  color: white;
+}
+.category-link {
+  color: var(--light-blue);
+}
+
+.category-link:hover {
+  color: var(--light-aqua);
+  text-decoration: underline;
+}
+.alert-danger {
+  font-size: 0.875rem;
+  border-radius: 6px;
+  padding: 6px 10px;
+  margin-top: 4px;
+}
+@media (max-width: 576px) {
+  .card-ev {
+    padding: 1.5rem;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 0.95rem;
+  }
+}

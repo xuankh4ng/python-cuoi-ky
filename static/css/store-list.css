@@ -1,0 +1,95 @@
+:root {
+  --fg: var(--light-fg);
+  --border: var(--light-bg-4);
+  --bg: var(--light-bg-0);
+  --bg-soft: var(--light-bg-1);
+  --bg-hover: var(--light-bg-2);
+  --accent-blue: var(--light-blue);
+  --accent-green: var(--light-aqua);
+  --accent-orange: var(--light-orange);
+  --accent-red: var(--light-red);
+}
+
+/* Layout chung */
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: "Inter", sans-serif;
+}
+
+/* Sidebar */
+.list-group-item {
+  background-color: var(--bg-soft);
+  color: var(--fg);
+  border: 1px solid var(--border);
+  transition: 0.2s;
+}
+
+.list-group-item:hover {
+  background-color: var(--bg-hover);
+}
+
+.list-group-item.active {
+  background-color: var(--accent-green);
+  color: white;
+  border-color: var(--accent-green);
+  font-weight: 600;
+}
+
+/* Card sách */
+.card {
+  background-color: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  transition: 0.25s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* Ảnh sách */
+.book-img {
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Nút xem chi tiết */
+.btn-primary {
+  background-color: var(--accent-blue);
+  border-color: var(--accent-blue);
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background-color: #2b7da5;
+  border-color: #2b7da5;
+}
+
+/* Alert warning */
+.alert-warning {
+  background-color: var(--light-yellow);
+  border: none;
+  color: white;
+}
+
+/* Tiêu đề */
+h2, h4 {
+  color: var(--fg);
+  font-weight: 700;
+  padding-left: 0.5rem;
+  border-left: 4px solid var(--accent-green);
+}
+
+h2 {
+  border-left: 8px solid var(--accent-green);
+  padding-left: 1rem;
+}
+
+/* Sidebar title spacing */
+.sidebar-title {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}

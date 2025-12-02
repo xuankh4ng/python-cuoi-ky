@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% block title %}Đăng nhập Tài khoản{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <h2 class="mb-4 book-title text-center">Đăng nhập</h2>
+
+        <div class="card card-ev p-4 shadow-sm">
+            
+            {% if form.errors %}
+                <div class="alert alert-danger p-2 mb-3 auto-hide show">
+                    Tên người dùng hoặc mật khẩu không đúng. Vui lòng thử lại.
+                </div>
+            {% endif %}
+
+            {% if next %}
+                {% if user.is_authenticated %}
+                    <div class="alert alert-warning p-2 mb-3 auto-hide show">
+                        Tài khoản của bạn không có quyền truy cập trang này.
+                    </div>
+                {% else %}
+                    <div class="alert alert-warning p-2 mb-3 auto-hide show">
+                        Vui lòng đăng nhập để xem trang này.
+                    </div>
+                {% endif %}
+            {% endif %}
+
+            <form method="post" novalidate>
+                {% csrf_token %}
+
+                {% for field in form %}
+                    <div class="mb-3">
+                        <label for="{{ field.id_for_label }}" class="form-label fw-bold">
+                            {{ field.label }}
+                        </label>
+
+                        <!-- Input chuẩn CSS -->
+                        <input type="{{ field.field.widget.input_type }}" 
+                               name="{{ field.html_name }}" 
+                               id="{{ field.id_for_label }}" 
+                               class="form-control form-control-lg"
+                               {% if field.value %}value="{{ field.value }}"{% endif %}
+                               {% if field.field.required %}required{% endif %}>
+
+                        {% for error in field.errors %}
+                            <div class="alert alert-danger p-2 mt-1">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+
+                {% if next %}
+                    <input type="hidden" name="next" value="{{ next }}" />
+                {% endif %}
+
+                <button type="submit" class="btn btn-ev-submit w-100 mt-3">
+                    Đăng nhập
+                </button>
+            </form>
+        </div>
+
+        <p class="mt-4 text-center text-muted small">
+            Chưa có tài khoản? 
+            <a href="{% url 'register' %}" class="category-link fw-bold text-decoration-none">
+                Đăng ký tại đây
+            </a>
+        </p>
+    </div>
+</div>
+{% endblock %}
