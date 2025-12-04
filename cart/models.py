@@ -19,7 +19,7 @@ class CartItem(models.Model):
     quantity = models.IntegerField(default=1)
 
     def get_total_price(self):
-        return self.quantity * self.book.price
+        return self.quantity * self.book.get_discount_price()
 
     def __str__(self):
         return f"{self.quantity} x {self.book.title} trong giỏ {self.cart.user.username}"

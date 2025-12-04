@@ -11,9 +11,9 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    list_display = ['title', 'author', 'price', 'stock', 'available', 'category', 'created', 'updated']
+    list_display = ['title', 'author', 'price', 'discount_percent', 'stock', 'available', 'category', 'created', 'updated']
     prepopulated_fields = {'slug': ('title',)} 
-    list_editable = ['price', 'stock', 'available']
+    list_editable = ['price', 'discount_percent', 'stock', 'available']
     list_filter = ['available', 'created', 'updated', 'category']
     search_fields = ['title', 'author', 'description']
     

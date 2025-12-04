@@ -22,9 +22,17 @@
             <p class="text-muted mb-3">Tác giả: <strong>{{ book.author }}</strong></p>
 
             <div class="d-flex align-items-center mb-4">
-                <span class="price-ev fw-bold fs-2 me-3">
-                    {{ book.price|money }}
-                </span>
+                {% if book.discount_percent > 0 %}
+                    <span class="price-ev fw-bold fs-2 me-3 text-danger">
+                        {{ book.get_discount_price|money }}
+                    </span>
+                    <span class="text-muted fs-5"><s>{{ book.price|money }}</s></span>
+                    <span class="badge bg-warning text-dark ms-2 fs-6">
+                        -{{ book.discount_percent }}%
+                    </span>
+                {% else %}
+                    <span class="price-ev fw-bold fs-2 me-3">{{ book.price|money }}</span>
+                {% endif %}
             </div>
 
             {% if book.stock > 0 %}

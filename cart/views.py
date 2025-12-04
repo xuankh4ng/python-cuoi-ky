@@ -40,21 +40,27 @@ def add_to_cart(request, book_id):
 
     return redirect('book_detail', category_slug=book.category.slug, id=book.id, book_slug=book.slug)
 
-def cart_increase(request, item_id):
-    item = get_object_or_404(CartItem, id=item_id)
-    item.quantity += 1
-    item.save()
-    return redirect("cart_detail")
-
-def cart_decrease(request, item_id):
-    item = get_object_or_404(CartItem, id=item_id)
-    if item.quantity > 1:
-        item.quantity -= 1
-        item.save()
-    return redirect("cart_detail")
-
 @login_required
 def cart_delete(request, item_id):
     item = get_object_or_404(CartItem, id=item_id)
     item.delete()
     return redirect("cart_detail")
+
+@login_required
+def cart_update(request):
+    if request.method == "POST":
+        cart = Cart.objects.get(user=request.user)
+
+        for key, value in request.POST.items():
+            if key.startswith("quantity_"):
+                try:
+                    item_id = int(key.replace("quantity_", ""))
+                    item = cart.items.get(id=item_id)
+                    quantity = int(value)
+                    quantity = max(1, min(quantity, item.book.stock))
+                    item.quantity = quantity
+                    item.save()
+                except (ValueError, CartItem.DoesNotExist):
+                    continue
+
+    return redirect('cart_detail')

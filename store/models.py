@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.query import DateTimeField
 
 class Category(models.Model):
     name = models.CharField(max_length=100, db_index=True)
@@ -6,8 +7,8 @@ class Category(models.Model):
 
     class Meta:
         ordering = ('name',)
-        verbose_name = 'Thể loại'
-        verbose_name_plural = 'Thể loại'
+        verbose_name = 'Danh mục'
+        verbose_name_plural = 'Danh mục'
 
     def __str__(self):
         return self.name
@@ -22,6 +23,7 @@ class Book(models.Model):
     stock = models.IntegerField()
     available = models.BooleanField(default=True)
     image = models.ImageField(blank=True)
+    discount_percent = models.PositiveIntegerField(default=0)
     
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -33,3 +35,8 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_discount_price(self):
+        if self.discount_percent > 0:
+            return self.price * (100 - self.discount_percent) / 100
+        return self.price

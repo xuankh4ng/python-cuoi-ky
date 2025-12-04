@@ -50,9 +50,18 @@
                         <h5 class="card-title fw-bold">{{ book.title }}</h5>
                         <p class="card-text text-muted mb-1">{{ book.author }}</p>
 
-                        <p class="text-danger fw-bold mt-2">
-                            {{ book.price|money }}
-                        </p>
+
+                        {% if book.discount_percent > 0 %}
+                            <p class="mt-2">
+                                <span class="text-danger fw-bold">{{ book.get_discount_price|money }}</span>
+                                <span class="text-muted"><s>{{ book.price|money }}</s></span>
+                                <span class="badge bg-warning text-dark ms-2 fs-6">
+                                    -{{ book.discount_percent }}%
+                                </span>
+                            </p>
+                        {% else %}
+                            <p class="text-danger fw-bold mt-2">{{ book.price|money }}</p>
+                        {% endif %}
 
                         <div class="mt-auto">
                             <a href="{% url 'book_detail' book.category.slug book.id book.slug %}" 
