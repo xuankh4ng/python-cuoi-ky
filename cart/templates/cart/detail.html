@@ -43,7 +43,7 @@
                 </p>
 
                 <!-- QUANTITY CONTROL -->
-                <form method="post" action="{% url 'cart_update_all' %}">
+                <form method="post" action="{% url 'cart_update' %}">
                     {% csrf_token %}
                     <div class="d-flex align-items-center gap-2">
                         <input type="number" name="quantity_{{ item.id }}" value="{{ item.quantity }}" min="1" max="{{ item.book.stock }}" class="form-control text-center" style="width: 70px;">
