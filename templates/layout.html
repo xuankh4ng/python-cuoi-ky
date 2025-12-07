@@ -47,7 +47,7 @@
   <body>
     <header>
       <nav class="navbar">
-        <a class="navbar-brand m-0 fs-2" href="{% url 'book_list' %}">Nhóm 5</a>
+        <a class="navbar-brand m-0 fs-2" href="{% url 'book_list' %}">BookHub</a>
 
         <div class="d-flex align-items-center gap-2">
           <a href="{% if user.is_authenticated %}{% url 'cart_detail' %}{% else %}{% url 'login' %}{% endif %}" 
