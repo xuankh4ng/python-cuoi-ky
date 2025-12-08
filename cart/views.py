@@ -1,8 +1,9 @@
 from django.shortcuts import redirect, get_object_or_404, render
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.db import transaction
 from store.models import Book
-from .models import Cart, CartItem
+from .models import Cart, CartItem, Order, OrderItem
 
 def cart_detail(request):
     if not request.user.is_authenticated:
@@ -64,3 +65,42 @@ def cart_update(request):
                     continue
 
     return redirect('cart_detail')
+
+def checkout(request):
+    cart = Cart.objects.get(user=request.user)
+    items = cart.items.select_related('book').all()
+
+    if not items.exists():
+        messages.info(request, "Giỏ hàng đang trống.")
+        return redirect('cart_detail')
+
+    with transaction.atomic():
+        total_price = sum(item.get_total_price() for item in items)
+
+        order = Order.objects.create(user=request.user, total_price=total_price)
+
+        for item in items:
+            OrderItem.objects.create(
+                order=order,
+                book=item.book,
+                quantity=item.quantity,
+                price=item.book.get_discount_price()
+            )
+            item.book.stock -= item.quantity
+            item.book.save()
+
+        items.delete()
+
+    messages.success(request, f"Đặt hàng thành công! Mã đơn hàng #{order.id}")
+    return redirect('order_detail', order_id=order.id)
+
+@login_required
+def order_detail(request, order_id):
+    order = Order.objects.prefetch_related('items__book').get(id=order_id, user=request.user)
+    return render(request, 'cart/order_detail.html', {'order': order})
+
+
+@login_required
+def order_history(request):
+    orders = Order.objects.filter(user=request.user).prefetch_related('items__book').order_by('-created_at')
+    return render(request, 'cart/order_history.html', {'orders': orders})
