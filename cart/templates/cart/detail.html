@@ -71,7 +71,11 @@
     <h4 class="fw-bold">Tổng cộng: {{ total_price|money }}</h4>
     <div class="mt-2 mt-md-0 d-flex gap-2">
         <a href="{% url 'book_list' %}" class="btn btn-secondary">Tiếp tục mua sắm</a>
-        <button class="btn btn-primary" disabled>Thanh toán</button>
+
+        <form method="post" action="{% url 'checkout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Thanh toán</button>
+        </form>
     </div>
 </div>
 
